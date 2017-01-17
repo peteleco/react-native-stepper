@@ -1,0 +1,31 @@
+{
+  "name": "react-native-stepper",
+  "version": "0.0.1",
+  "description": "A custome Stepper inspired in SimpleStepper by Brian Sinnicke",
+  "main": "Stepper.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peteleco/react-native-stepper.git"
+  },
+  "keywords": [
+    "react-component",
+    "ios",
+    "android",
+    "react-native",
+    "UIStepper",
+    "stepper",
+    "input-stepper"
+  ],
+  "author": "Leonardo Jorge",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peteleco/react-native-stepper/issues"
+  },
+  "homepage": "https://github.com/peteleco/react-native-stepper#readme"
+}
