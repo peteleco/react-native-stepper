@@ -114,26 +114,54 @@ class Stepper extends Component {
   }
 
   render() {
+    const { containerStyle, deacreaseButtonStyle, increaseButtonStyle } = this.props.style;
+
     return (
-      <View>
-        <TouchableOpacity onPress={this.onPressDecreaseButton.bind(this)}><Text>-</Text></TouchableOpacity>
-        <Text>Oi: {this.state.value}</Text>
-        <TouchableOpacity onPress={this.onPressIncreaseButton.bind(this)}><Text>+</Text></TouchableOpacity>
+      <View style={containerStyle}>
+        <TouchableOpacity style={deacreaseButtonStyle} onPress={this.onPressDecreaseButton.bind(this)}>{this.props.decreaseComponent}</TouchableOpacity>
+        {/* <Text>Oi: {this.state.value}</Text> */}
+        <TouchableOpacity style={increaseButtonStyle} onPress={this.onPressIncreaseButton.bind(this)}>{this.props.increaseComponent}</TouchableOpacity>
       </View>
     );
   }
 
 }
 
+// Default style
+// const styles = StyleSheet.create({
+//   containerStyle: {
+//     backgroundColor: 'white',
+//     flexDirection: 'row'
+//   },
+//   deacreaseButtonStyle: {
+//     padding: 0,
+//     borderWidth: 2,
+//     borderColor: 'red',
+//     borderTopLeftRadius: 4,
+//     borderBottomLeftRadius: 4
+//   },
+//   increaseButtonStyle: {
+//     padding: 0,
+//     borderWidth: 2,
+//     borderColor: 'red',
+//     borderTopRightRadius: 4,
+//     borderBottomRightRadius: 4
+//   }
+// });
+
+// Default props values
 Stepper.defaultProps = {
   initValue: 0,
   minValue: null,
   maxValue: null,
   ignoreMinValidation: false,
   ignoreMaxValidation: false,
-  valueChanged: null
+  valueChanged: null,
+  decreaseComponent: (<Text>-</Text>),
+  increaseComponent: (<Text>+</Text>)
 };
 
+// PropTypes definitions
 Stepper.propTypes = {
     // Min value, if null is unlimited
     minValue: React.PropTypes.number,
@@ -145,7 +173,12 @@ Stepper.propTypes = {
     stepValue: React.PropTypes.number.isRequired,
     ignoreMinValidation: React.PropTypes.bool,
     ignoreMaxValidation: React.PropTypes.bool,
-    valueChanged: React.PropTypes.func
+    valueChanged: React.PropTypes.func,
+    decreaseComponent:  React.PropTypes.oneOfType([
+      React.PropTypes.instanceOf(Component),
+      React.PropTypes.instanceOf(Object),
+    ]),
+    style: React.PropTypes.instanceOf(Object)
 };
 
 export default Stepper;
