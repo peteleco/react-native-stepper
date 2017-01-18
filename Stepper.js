@@ -155,15 +155,15 @@ class Stepper extends Component {
         <TouchableOpacity
           style={deacreaseButtonStyle}
           onPress={this.onPressDecreaseButton.bind(this)}
-          onPressIn={this.onPressInDecreaseButton.bind(this)}
-          onPressOut={this.onPressOutButton.bind(this)}
+          // onPressIn={this.onPressInDecreaseButton.bind(this)}
+          // onPressOut={this.onPressOutButton.bind(this)}
         >{this.props.decreaseComponent}</TouchableOpacity>
         {/* <Text>Oi: {this.state.value}</Text> */}
         <TouchableOpacity
           style={increaseButtonStyle}
           onPress={this.onPressIncreaseButton.bind(this)}
-          onPressIn={this.onPressInIncreaseButton.bind(this)}
-          onPressOut={this.onPressOutButton.bind(this)}
+          // onPressIn={this.onPressInIncreaseButton.bind(this)}
+          // onPressOut={this.onPressOutButton.bind(this)}
         >{this.props.increaseComponent}</TouchableOpacity>
       </View>
     );
