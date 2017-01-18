@@ -10,6 +10,8 @@ class Stepper extends Component {
       hasReachedMaxValue: false,
     };
 
+    this.timer = null;
+
     this.validateInitValueAgainstMaxValue(props.initValue, props.maxValue);
     this.validateInitValueAgainstMinValue(props.initValue, props.minValue);
     if(!props.ignoreMaxValidation) {
@@ -58,7 +60,7 @@ class Stepper extends Component {
       return false;
     }
 
-    return (value > this.props.maxValue);
+    return (value == this.props.maxValue);
   }
 
   // Check if reached min value
@@ -67,31 +69,34 @@ class Stepper extends Component {
       return false;
     }
 
-    return (value < this.props.minValue);
+    return (value == this.props.minValue);
   }
 
 
   // Increase value
   increase(stepValue) {
     const { state } = this;
-    const currentValue = state.value + stepValue;
-    if(this.hasReachedMaxValue(currentValue)) {
+
+    if(this.hasReachedMaxValue(state.value)) {
+      this.stopTimeInterval();
       // fire alert function passed by
       return Alert.alert('Máximo atingido');
     }
+    const currentValue = state.value + stepValue;
 
-    this.setState({...state, value:currentValue});
+    this.setState({...state, value: currentValue });
     this.valueChanged(currentValue);
   }
 
   // Deacrease value
   decrease(stepValue) {
     const { state } = this;
-    const currentValue = state.value - stepValue;
-    if(this.hasReachedMinValue(currentValue)) {
+    if(this.hasReachedMinValue(state.value)) {
+      this.stopTimeInterval();
       // fire alert function passed by
       return Alert.alert('Minimo atingido');
     }
+    const currentValue = state.value - stepValue;
     this.setState({...state, value: currentValue});
     this.valueChanged(currentValue);
   }
@@ -100,10 +105,39 @@ class Stepper extends Component {
   onPressIncreaseButton() {
     this.increase(this.props.stepValue);
   }
+  // When users press and hold the button
+  // Todo: speed up when is a long press
+  onPressInIncreaseButton() {
+    this.timer = setInterval(
+      () => {
+        if(!this.hasReachedMaxValue(this.state.value)) {
+          this.increase(this.props.stepValue);
+        }
+      }, 50);
+  }
+
 
   // On press decrease button
   onPressDecreaseButton() {
     this.decrease(this.props.stepValue);
+  }
+    // On press decrease button and hold
+  onPressInDecreaseButton() {
+    this.timer = setInterval(
+      () => {
+        if(!this.hasReachedMinValue(this.state.value)) {
+          this.decrease(this.props.stepValue);
+        }
+      }, 50);
+  }
+
+  // Stops time interval
+  stopTimeInterval() {
+    clearInterval(this.timer);
+  }
+
+  onPressOutButton() {
+    this.stopTimeInterval();
   }
 
   // Value changed: use this function to get value
@@ -118,34 +152,32 @@ class Stepper extends Component {
 
     return (
       <View style={containerStyle}>
-        <TouchableOpacity style={deacreaseButtonStyle} onPress={this.onPressDecreaseButton.bind(this)}>{this.props.decreaseComponent}</TouchableOpacity>
+        <TouchableOpacity
+          style={deacreaseButtonStyle}
+          onPress={this.onPressDecreaseButton.bind(this)}
+          onPressIn={this.onPressInDecreaseButton.bind(this)}
+          onPressOut={this.onPressOutButton.bind(this)}
+        >{this.props.decreaseComponent}</TouchableOpacity>
         {/* <Text>Oi: {this.state.value}</Text> */}
-        <TouchableOpacity style={increaseButtonStyle} onPress={this.onPressIncreaseButton.bind(this)}>{this.props.increaseComponent}</TouchableOpacity>
+        <TouchableOpacity
+          style={increaseButtonStyle}
+          onPress={this.onPressIncreaseButton.bind(this)}
+          onPressIn={this.onPressInIncreaseButton.bind(this)}
+          onPressOut={this.onPressOutButton.bind(this)}
+        >{this.props.increaseComponent}</TouchableOpacity>
       </View>
     );
   }
 
 }
 
-// Default style
+// Scheleton of style
 // const styles = StyleSheet.create({
 //   containerStyle: {
-//     backgroundColor: 'white',
-//     flexDirection: 'row'
 //   },
 //   deacreaseButtonStyle: {
-//     padding: 0,
-//     borderWidth: 2,
-//     borderColor: 'red',
-//     borderTopLeftRadius: 4,
-//     borderBottomLeftRadius: 4
 //   },
 //   increaseButtonStyle: {
-//     padding: 0,
-//     borderWidth: 2,
-//     borderColor: 'red',
-//     borderTopRightRadius: 4,
-//     borderBottomRightRadius: 4
 //   }
 // });
 
