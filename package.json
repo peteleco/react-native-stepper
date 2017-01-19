@@ -1,6 +1,6 @@
 {
   "name": "react-native-stepper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A custome Stepper inspired in SimpleStepper by Brian Sinnicke",
   "main": "Stepper.js",
   "directories": {
