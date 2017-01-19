@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Alert, StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native'
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 class Stepper extends Component {
   constructor(props) {

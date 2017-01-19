@@ -29,8 +29,10 @@
   },
   "homepage": "https://github.com/peteleco/react-native-stepper#readme",
   "devDependencies": {
-    "eslint-config-rallycoding": "^3.2.0",
     "react": "^15.4.2",
     "react-native": "^0.40.0"
+  },
+  "devDependencies": {
+    "eslint-config-rallycoding": "^3.2.0"
   }
 }
