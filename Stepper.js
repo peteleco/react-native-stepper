@@ -72,15 +72,14 @@ class Stepper extends Component {
     return (value === this.props.minValue);
   }
 
-
   // Increase value
   increase(stepValue) {
     const { state } = this;
 
     if (this.hasReachedMaxValue(state.value)) {
       this.stopTimeInterval();
-      // fire alert function passed by
-      return Alert.alert('Máximo atingido');
+
+      return this.handleMessage(this.props.maxMessage);
     }
     const currentValue = state.value + stepValue;
 
@@ -88,13 +87,26 @@ class Stepper extends Component {
     this.valueChanged(currentValue);
   }
 
+  // Handle max message
+  handleMessage(message) {
+    if (typeof message === 'string') {
+      return Alert.alert(message);
+    }
+
+    if (typeof message === 'function') {
+      return message();
+    }
+
+    return false;
+  }
+
   // Decrease value
   decrease(stepValue) {
     const { state } = this;
     if (this.hasReachedMinValue(state.value)) {
       this.stopTimeInterval();
-      // fire alert function passed by
-      return Alert.alert('Minimo atingido');
+
+      return this.handleMessage(this.props.maxMessage);
     }
     const currentValue = state.value - stepValue;
     this.setState({ ...state, value: currentValue });
@@ -110,7 +122,7 @@ class Stepper extends Component {
   onPressInIncreaseButton() {
     this.timer = setInterval(
       () => {
-        if(!this.hasReachedMaxValue(this.state.value)) {
+        if (!this.hasReachedMaxValue(this.state.value)) {
           this.increase(this.props.stepValue);
         }
       }, 50);
@@ -125,7 +137,7 @@ class Stepper extends Component {
   onPressInDecreaseButton() {
     this.timer = setInterval(
       () => {
-        if(!this.hasReachedMinValue(this.state.value)) {
+        if (!this.hasReachedMinValue(this.state.value)) {
           this.decrease(this.props.stepValue);
         }
       }, 50);
@@ -143,7 +155,7 @@ class Stepper extends Component {
   // Value changed: use this function to get value
   valueChanged(value) {
     if (this.props.valueChanged) {
-      this.props.valueChanged(value)
+      this.props.valueChanged(value);
     }
   }
 
@@ -185,31 +197,48 @@ Stepper.defaultProps = {
   initValue: 0,
   minValue: null,
   maxValue: null,
+  stepValue: 1,
   ignoreMinValidation: false,
   ignoreMaxValidation: false,
   valueChanged: null,
   decreaseComponent: (<Text>-</Text>),
-  increaseComponent: (<Text>+</Text>)
+  increaseComponent: (<Text>+</Text>),
+  minMessage: null,
+  maxMessage: null
 };
 
 // PropTypes definitions
 Stepper.propTypes = {
-    // Min value, if null is unlimited
-    minValue: React.PropTypes.number,
-    // Max value, if null is unlimited
-    maxValue: React.PropTypes.number,
-    // Initial value
-    initValue: React.PropTypes.number.isRequired,
-    // Step value
-    stepValue: React.PropTypes.number.isRequired,
-    ignoreMinValidation: React.PropTypes.bool,
-    ignoreMaxValidation: React.PropTypes.bool,
-    valueChanged: React.PropTypes.func,
-    decreaseComponent: React.PropTypes.oneOfType([
-      React.PropTypes.instanceOf(Component),
-      React.PropTypes.instanceOf(Object),
-    ]),
-    style: React.PropTypes.instanceOf(Object).isRequired
+  // Initial value
+  initValue: PropTypes.number,
+  // Min value, if null is unlimited
+  minValue: PropTypes.number,
+  // Max value, if null is unlimited
+  maxValue: PropTypes.number,
+
+  // Step value
+  stepValue: PropTypes.number,
+  ignoreMinValidation: PropTypes.bool,
+  ignoreMaxValidation: PropTypes.bool,
+  valueChanged: PropTypes.func.isRequired,
+  decreaseComponent: PropTypes.oneOfType([
+    PropTypes.instanceOf(Component),
+    PropTypes.instanceOf(Object),
+  ]),
+  increaseComponent: PropTypes.oneOfType([
+    PropTypes.instanceOf(Component),
+    PropTypes.instanceOf(Object),
+  ]),
+  style: PropTypes.instanceOf(Object).isRequired,
+
+  minMessage: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+  ]),
+  maxMessage: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+  ])
 };
 
 export default Stepper;
