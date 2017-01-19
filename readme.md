@@ -19,12 +19,17 @@ This is my first package with react-native and i need a stepper implementation t
 ```npm i react-native-stepper --save```
 
 ### Usage
+
 ```javascript
 import Stepper from 'react-native-stepper'
+
 //...
+
 render() {
   return (
+
       //...
+
       <Stepper
         initValue={duration}
         minValue={0}
@@ -34,15 +39,68 @@ render() {
         increaseComponent={(<Icon family="Ionicons" name="add" style={stepperStyle.iconStyle} />)}
         valueChanged={(value) => this.onChangeDurationFilter(value)}
       />
+
       //...
+
   )
 }
+
 onChangeDurationFilter(value) {
   // ... update your app state here
 }
+
 //...
+
 ```
 
-#### Attention
+#### Attention !!!
 
-I do not provide any style or default component for decrease and increase buttons, you must provide both
+I do not provide any style or default component for decrease and increase buttons, you must provide both.
+To implement your style you must follow the schema below.
+
+```javascript
+
+const stepperStyle = StyleSheet.create({
+  containerStyle: {
+    flexDirection: 'row'
+  },
+  decreaseButtonStyle: {
+    padding: 0,
+    borderWidth: 2,
+    borderRightWidth: 1,
+    borderColor: 'red',
+    borderTopLeftRadius: 4,
+    borderBottomLeftRadius: 4
+  },
+  increaseButtonStyle: {
+    padding: 0,
+    borderWidth: 2,
+    borderLeftWidth: 1,
+    borderColor: 'red',
+    borderTopRightRadius: 4,
+    borderBottomRightRadius: 4
+  }
+});
+
+```
+
+### Demo
+
+![screenshot](https://raw.github.com/peteleco/react-native-stepper/master/screenshots/stepper___gif.gif)
+
+### Props
+
+| Name | Type |Description | Default
+| ------------ | ------------- | ------------ |------------ |------------ |
+| ```initValue``` | Number | Initial value. | ```0```
+| ```minValue``` | Number | The minimum value that stepper counter can achieve. | -
+| ```maxValue``` | Number | The maximum value that stepper counter can achieve. | -
+| ```maxValue``` | Number | The max value that stepper counter can achieve. | ```1```
+| ```decreaseComponent``` | Component | Component that will be rendered as decrease button | ```<Text>-</Text>```
+| ```increaseComponent``` | Component | Component that will be rendered as increase button | ```<Text>-</Text>```
+| ```style``` | StyleSheet Object | Style that will be applied in your stepper component | -
+| ```valueChanged``` | Function | Fires when the value changes and the value will be passed down for processing like display or calculations. | ```FALSE```
+| ```minMessage``` | String or Function | Message fired when stepper achieve the minimum value | null
+| ```maxMessage``` | String or Function | Message fired when stepper achieve the maximum value | null
+| ```ignoreMinValidation``` | Boolean | !!! | ```FALSE```
+| ```ignoreMaxValidation``` | Boolean | !!! | ```FALSE```
