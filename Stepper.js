@@ -171,18 +171,17 @@ class Stepper extends Component {
 
 }
 
-// Scheleton of style
-// const styles = StyleSheet.create({
-//   containerStyle: {
-//   },
-//   deacreaseButtonStyle: {
-//   },
-//   increaseButtonStyle: {
-//   }
-// });
-
 // Default props values
 Stepper.defaultProps = {
+  // Scheleton of style
+  style: StyleSheet.create({
+    containerStyle: {
+    },
+    deacreaseButtonStyle: {
+    },
+    increaseButtonStyle: {
+    }
+  }),
   initValue: 0,
   minValue: null,
   maxValue: null,
@@ -206,11 +205,11 @@ Stepper.propTypes = {
     ignoreMinValidation: React.PropTypes.bool,
     ignoreMaxValidation: React.PropTypes.bool,
     valueChanged: React.PropTypes.func,
-    decreaseComponent:  React.PropTypes.oneOfType([
+    decreaseComponent: React.PropTypes.oneOfType([
       React.PropTypes.instanceOf(Component),
       React.PropTypes.instanceOf(Object),
     ]),
-    style: React.PropTypes.instanceOf(Object)
+    style: React.PropTypes.instanceOf(Object).isRequired
 };
 
 export default Stepper;
