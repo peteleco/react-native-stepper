@@ -106,7 +106,7 @@ class Stepper extends Component {
     if (this.hasReachedMinValue(state.value)) {
       this.stopTimeInterval();
 
-      return this.handleMessage(this.props.maxMessage);
+      return this.handleMessage(this.props.minMessage);
     }
     const currentValue = state.value - stepValue;
     this.setState({ ...state, value: currentValue });
