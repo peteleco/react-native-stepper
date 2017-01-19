@@ -14,62 +14,62 @@ class Stepper extends Component {
 
     this.validateInitValueAgainstMaxValue(props.initValue, props.maxValue);
     this.validateInitValueAgainstMinValue(props.initValue, props.minValue);
-    if(!props.ignoreMaxValidation) {
+    if (!props.ignoreMaxValidation) {
         this.validateRangeMaxValue(props.initValue, props.stepValue, props.maxValue);
     }
-    if(!props.ignoreMinValidation) {
+    if (!props.ignoreMinValidation) {
         this.validateRangeMinValue(props.initValue, props.stepValue, props.minValue);
     }
   }
 
   // Checks if initValue are lower than maxValue
   validateInitValueAgainstMaxValue(initValue, maxValue) {
-    if(maxValue !== null && initValue > maxValue) {
-      throw "The initital value can't be higher than max value";
+    if (maxValue !== null && initValue > maxValue) {
+      throw 'The initital value can\'t be higher than max value';
     }
     return true;
   }
 
   // Checks if minValue are lower than maxValue
   validateInitValueAgainstMinValue(initValue, minValue) {
-    if(minValue !== null && initValue < minValue) {
-      throw "The initital value can't be lower than min value";
+    if (minValue !== null && initValue < minValue) {
+      throw 'The initital value can\'t be lower than min value';
     }
     return true;
   }
 
   // Checks if range between initalValue and MaxValue are valids
   validateRangeMaxValue(initValue, stepValue, maxValue) {
-    if(maxValue !== null && (((maxValue - initValue) % stepValue) !== 0)) {
-      throw "The initital value or step value are not valids with this max value";
+    if (maxValue !== null && (((maxValue - initValue) % stepValue) !== 0)) {
+      throw 'The initital value or step value are not valids with this max value';
     }
     return true;
   }
 
   // Checks if range between initalValue and MinValue are valids
   validateRangeMinValue(initValue, stepValue, minValue) {
-    if(minValue !== null && (((initValue - minValue) % stepValue) !== 0)) {
-      throw "The initital value or step value are not valids with this min value";
+    if (minValue !== null && (((initValue - minValue) % stepValue) !== 0)) {
+      throw 'The initital value or step value are not valids with this min value';
     }
     return true;
   }
 
   // Check if reached max value
   hasReachedMaxValue(value) {
-    if(this.props.maxValue === null) {
+    if (this.props.maxValue === null) {
       return false;
     }
 
-    return (value == this.props.maxValue);
+    return (value === this.props.maxValue);
   }
 
   // Check if reached min value
   hasReachedMinValue(value) {
-    if(this.props.minValue === null) {
+    if (this.props.minValue === null) {
       return false;
     }
 
-    return (value == this.props.minValue);
+    return (value === this.props.minValue);
   }
 
 
@@ -77,27 +77,27 @@ class Stepper extends Component {
   increase(stepValue) {
     const { state } = this;
 
-    if(this.hasReachedMaxValue(state.value)) {
+    if (this.hasReachedMaxValue(state.value)) {
       this.stopTimeInterval();
       // fire alert function passed by
       return Alert.alert('Máximo atingido');
     }
     const currentValue = state.value + stepValue;
 
-    this.setState({...state, value: currentValue });
+    this.setState({ ...state, value: currentValue });
     this.valueChanged(currentValue);
   }
 
-  // Deacrease value
+  // Decrease value
   decrease(stepValue) {
     const { state } = this;
-    if(this.hasReachedMinValue(state.value)) {
+    if (this.hasReachedMinValue(state.value)) {
       this.stopTimeInterval();
       // fire alert function passed by
       return Alert.alert('Minimo atingido');
     }
     const currentValue = state.value - stepValue;
-    this.setState({...state, value: currentValue});
+    this.setState({ ...state, value: currentValue });
     this.valueChanged(currentValue);
   }
 
@@ -148,12 +148,12 @@ class Stepper extends Component {
   }
 
   render() {
-    const { containerStyle, deacreaseButtonStyle, increaseButtonStyle } = this.props.style;
+    const { containerStyle, decreaseButtonStyle, increaseButtonStyle } = this.props.style;
 
     return (
       <View style={containerStyle}>
         <TouchableOpacity
-          style={deacreaseButtonStyle}
+          style={decreaseButtonStyle}
           onPress={this.onPressDecreaseButton.bind(this)}
           // onPressIn={this.onPressInDecreaseButton.bind(this)}
           // onPressOut={this.onPressOutButton.bind(this)}
@@ -177,7 +177,7 @@ Stepper.defaultProps = {
   style: StyleSheet.create({
     containerStyle: {
     },
-    deacreaseButtonStyle: {
+    decreaseButtonStyle: {
     },
     increaseButtonStyle: {
     }
