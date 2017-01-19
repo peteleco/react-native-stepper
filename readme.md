@@ -1,4 +1,4 @@
-## react-native-simple-stepper
+## react-native-stepper
 
 [![Platform](https://img.shields.io/badge/platform-react--native-lightgrey.svg)](http://facebook.github.io/react-native/)
 [![npm version](http://img.shields.io/npm/v/react-native-stepper.svg)](https://www.npmjs.com/package/react-native-stepper)
