@@ -9,7 +9,7 @@
 
 A super simple react-native stepper implementation. Check out the props below for customization.
 
-This package was inspired in [react-native-simple-stepper](https://github.com/devBrian/react-native-simple-stepper) develop by [Brian](https://github.com/devBrian).
+This package was inspired in [react-native-simple-stepper](https://github.com/testshallpass/react-native-simple-stepper) develop by [Brian aka testshallpass](https://github.com/testshallpass).
 
 ### Motivation
 
